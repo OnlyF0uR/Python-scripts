@@ -1,5 +1,2 @@
 # Python-scripts
-<font color='#B22222'>
-<h3>Python scripts for cyber security:</h3>
-</font>
-
+A collection of useful **Python 3** scripts that are related to Cyber Security.

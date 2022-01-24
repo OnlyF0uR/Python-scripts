@@ -7,7 +7,7 @@ import argparse
 from socket import socket, AF_INET, SOCK_STREAM
 from Crypto.Cipher import XOR
 
-parser = argparse.ArgumentParser(description='XOR Shell - Attacker')
+parser = argparse.ArgumentParser(description='XOR Shell - Receiver')
 parser.add_argument('-a','--host', help='set lhost', required=True)
 parser.add_argument('-p','--port', help='set lport', required=True)
 parser.add_argument('-k','--key', help='set XOR key', required=True)
